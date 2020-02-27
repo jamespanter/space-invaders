@@ -44,6 +44,7 @@
     }
 
     button {
+      display: block;
       padding: 20px 40px;
       font-size: 24px;
       width: 250px;
@@ -65,17 +66,19 @@
       width: 250px;
       font-size: 32px;
     }
+
+    #new-game-panel {
+      margin-top: 60px;
+    }
   </style>
 </head>
 
 <body onload="generateNewShips()">
   <h1>SPACE INVADERS</h1>
   <div id="output"></div>
-  <div>
-    <button onclick="chooseShipToFireAt()">FIRE</button>
+  <button onclick="chooseShipToFireAt()">FIRE</button>
+  <div id="new-game-panel">
     <button id="new" onclick="generateNewShips()">NEW GAME</button>
-  </div>
-  <div>
     <h2># of defender ships</h2>
     <input type="text" id="defender-input" placeholder="defender ships" value="5">
     <h2># of attacker ships</h2>
@@ -113,24 +116,21 @@
     const setHealthToZero = ship => ship.health = 0;
 
     const generateNewShips = () => {
-      const numberOfDefenders = parseInt(document.getElementById('defender-input').value);
-      const numberOfAttackers = parseInt(document.getElementById('attacker-input').value);
+      const numberOfDefenders = parseInt(document.getElementById('defender-input').value),
+        numberOfAttackers = parseInt(document.getElementById('attacker-input').value);
       arrayOfShips = [];
       document.getElementById('output').innerHTML = '';
-      arrayOfShips[0] = new MotherShip("mothership", 100, 9, `ship${arrayOfShips.length+1}`);
+      arrayOfShips[0] = new MotherShip("mothership", 100, 9, `ship${arrayOfShips.length + 1}`);
       for (let index = 1; index < (numberOfDefenders + 1); index++) {
-        arrayOfShips[index] = new Ship("defender", 80, 10, `ship${arrayOfShips.length+1}`);
+        arrayOfShips[index] = new Ship("defender", 80, 10, `ship${arrayOfShips.length + 1}`);
       }
       for (let index = arrayOfShips.length; index < (numberOfAttackers + numberOfDefenders + 1); index++) {
-        arrayOfShips[index] = new Ship("attacker", 45, 12, `ship${arrayOfShips.length+1}`);
+        arrayOfShips[index] = new Ship("attacker", 45, 12, `ship${arrayOfShips.length + 1}`);
       }
-
       arrayOfShips.forEach(createShipHealthInHtml);
     }
 
-    const createShipHealthInHtml = (ship) => {
-      document.getElementById('output').innerHTML += `<p id='${ship.id}'>${ship.name}<br>${ship.health}</p>`;
-    }
+    const createShipHealthInHtml = ship => document.getElementById('output').innerHTML += `<p id='${ship.id}'>${ship.name}<br>${ship.health}</p>`;
 
     const chooseShipToFireAt = () => {
       const shipPosition = Math.floor(Math.random() * arrayOfShips.length)
@@ -151,9 +151,7 @@
       arrayOfShips.forEach(updateShipHealth);
     }
 
-    const updateShipHealth = (ship) => {
-      document.getElementById(ship.id).innerHTML = `${ship.name}<br>${ship.health}`;
-    }
+    const updateShipHealth = ship => document.getElementById(ship.id).innerHTML = `${ship.name}<br>${ship.health}`;
   </script>
 </body>
 
