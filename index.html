@@ -9,12 +9,14 @@
     <script src="main.js" async defer></script>
 </head>
 
-<body onload="createNewGame()">
-    <p id="output"></p>
+<body onload="generateNewShips()">
+    <p id="mothership"></p>
+    <p id="defenceship"></p>
+    <p id="attackship"></p>
 
 
-    <button>NEW GAME</button>
-    <button onclick="fireAtShip()">FIRE</button>
+    <button onclick="generateNewShips()">NEW GAME</button>
+    <button onclick="chooseShipToFireAt()">FIRE</button>
 </body>
 
 </html>
