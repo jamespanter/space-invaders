@@ -67,6 +67,8 @@
   <div>
     <button onclick="chooseShipToFireAt()">FIRE</button>
     <button id="new" onclick="generateNewShips()">NEW GAME</button>
+    <input type="text" id="defender-input" placeholder="defender ships" value="5">
+    <input type="text" id="attacker-input" placeholder="attacker ships" value="8">
   </div>
   <script type="text/javascript">
     let arrayOfShips = [];
@@ -100,25 +102,18 @@
     const setHealthToZero = ship => ship.health = 0;
 
     const generateNewShips = () => {
-      document.getElementById('output').innerHTML = '';
+      const numberOfDefenders = parseInt(document.getElementById('defender-input').value);
+      const numberOfAttackers = parseInt(document.getElementById('attacker-input').value);
       arrayOfShips = [];
-      const motherShip = new MotherShip('Mothership', 100, 9, 'ms1'),
-        defenceShip1 = new Ship('Defenceship', 80, 10, 'ds1'),
-        defenceShip2 = new Ship('Defenceship', 80, 10, 'ds2'),
-        defenceShip3 = new Ship('Defenceship', 80, 10, 'ds3'),
-        defenceShip4 = new Ship('Defenceship', 80, 10, 'ds4'),
-        defenceShip5 = new Ship('Defenceship', 80, 10, 'ds5'),
-        attackShip1 = new Ship('Attackship', 45, 12, 'as1'),
-        attackShip2 = new Ship('Attackship', 45, 12, 'as2'),
-        attackShip3 = new Ship('Attackship', 45, 12, 'as3'),
-        attackShip4 = new Ship('Attackship', 45, 12, 'as4'),
-        attackShip5 = new Ship('Attackship', 45, 12, 'as5'),
-        attackShip6 = new Ship('Attackship', 45, 12, 'as6'),
-        attackShip7 = new Ship('Attackship', 45, 12, 'as7'),
-        attackShip8 = new Ship('Attackship', 45, 12, 'as8');
-      arrayOfShips.push(motherShip, defenceShip1, defenceShip2, defenceShip3, defenceShip4, defenceShip5,
-        attackShip1, attackShip2, attackShip3, attackShip4, attackShip5, attackShip6, attackShip7,
-        attackShip8);
+      document.getElementById('output').innerHTML = '';
+      arrayOfShips[0] = new MotherShip("mothership", 100, 9, `ship${arrayOfShips.length+1}`);
+      for (let index = 1; index < (numberOfDefenders + 1); index++) {
+        arrayOfShips[index] = new Ship("defender", 80, 10, `ship${arrayOfShips.length+1}`);
+      }
+      for (let index = arrayOfShips.length; index < (numberOfAttackers + numberOfDefenders + 1); index++) {
+        arrayOfShips[index] = new Ship("attacker", 45, 12, `ship${arrayOfShips.length+1}`);
+      }
+
       arrayOfShips.forEach(createShipHealthInHtml);
     }
 
@@ -132,12 +127,13 @@
       fireAtShip(chosenShip);
       if (arrayOfShips[shipPosition].health < 1) {
         arrayOfShips.splice(shipPosition, 1)
+        console.log('Ship removed from array: ' + arrayOfShips)
       }
     }
 
     const fireAtShip = (ship) => {
       ship.loseHealth();
-      console.log('Fired at ship ... ' + ship.id)
+      console.log('Fired at ... ' + ship.id)
       if (arrayOfShips[0].health < 1) {
         arrayOfShips[0].destroyAllShips()
       }
