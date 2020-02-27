@@ -13,6 +13,7 @@
       box-sizing: border-box;
       background-color: black;
       color: rgb(175, 172, 172);
+      text-align: center;
     }
 
     body {
@@ -58,6 +59,12 @@
     #new:hover {
       background-color: limegreen;
     }
+
+    input {
+      height: 50px;
+      width: 250px;
+      font-size: 32px;
+    }
   </style>
 </head>
 
@@ -67,7 +74,11 @@
   <div>
     <button onclick="chooseShipToFireAt()">FIRE</button>
     <button id="new" onclick="generateNewShips()">NEW GAME</button>
+  </div>
+  <div>
+    <h2># of defender ships</h2>
     <input type="text" id="defender-input" placeholder="defender ships" value="5">
+    <h2># of attacker ships</h2>
     <input type="text" id="attacker-input" placeholder="attacker ships" value="8">
   </div>
   <script type="text/javascript">
