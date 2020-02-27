@@ -2,120 +2,152 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Invaders</title>
-    <style>
-        * {
-            background-color: bisque;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Space Invaders</title>
+  <style>
+    * {
+      font-family: Arial, Helvetica, sans-serif;
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+      background-color: black;
+      color: rgb(175, 172, 172);
+    }
 
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        }
+    body {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-direction: column;
+    }
 
-        p {
-            display: inline-block;
-            height: 100px;
-            width: 250px;
-            border: solid 1px black;
-            font-size: 32px;
-            text-align: center;
-        }
+    h1 {
+      margin: 20px 0;
+      font-size: 65px;
+    }
 
-        button {
-            padding: 20px 40px;
-        }
-    </style>
+    p {
+      display: inline-block;
+      height: 100px;
+      width: 250px;
+      border: solid 1px white;
+      font-size: 32px;
+      text-align: center;
+    }
+
+    #output {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 20px 40px;
+      font-size: 24px;
+      width: 250px;
+      background-color: antiquewhite;
+      color: black;
+    }
+
+    button:hover {
+      color: white;
+      background-color: red;
+    }
+
+    #new:hover {
+      background-color: limegreen;
+    }
+  </style>
 </head>
 
 <body onload="generateNewShips()">
-    <div id="output"></div>
+  <h1>SPACE INVADERS</h1>
+  <div id="output"></div>
+  <div>
     <button onclick="chooseShipToFireAt()">FIRE</button>
-    <button onclick="generateNewShips()">NEW GAME</button>
-    <script type="text/javascript">
-        let arrayOfShips = [];
+    <button id="new" onclick="generateNewShips()">NEW GAME</button>
+  </div>
+  <script type="text/javascript">
+    let arrayOfShips = [];
 
-        class Ship {
-            constructor(name, health, damagetaken, id) {
-                this.name = name;
-                this.health = health;
-                this.damagetaken = damagetaken;
-                this.id = id;
-            }
+    class Ship {
+      constructor(name, health, damagetaken, id) {
+        this.name = name;
+        this.health = health;
+        this.damagetaken = damagetaken;
+        this.id = id;
+      }
 
-            loseHealth() {
-                this.health = this.health - this.damagetaken
-                if (this.health < 0) {
-                    this.health = 0
-                }
-            }
+      loseHealth() {
+        this.health = this.health - this.damagetaken
+        if (this.health < 0) {
+          this.health = 0
         }
+      }
+    }
 
-        class MotherShip extends Ship {
-            constructor(name, health, damagetaken, id) {
-                super(name, health, damagetaken, id);
-            }
+    class MotherShip extends Ship {
+      constructor(name, health, damagetaken, id) {
+        super(name, health, damagetaken, id);
+      }
 
-            destroyAllShips() {
-                arrayOfShips.forEach(setHealthToZero);
-            }
-        }
+      destroyAllShips() {
+        arrayOfShips.forEach(setHealthToZero);
+      }
+    }
 
-        const setHealthToZero = ship => ship.health = 0;
+    const setHealthToZero = ship => ship.health = 0;
 
-        const generateNewShips = () => {
-            document.getElementById('output').innerHTML = '';
-            arrayOfShips = [];
-            const motherShip = new MotherShip('Mothership', 100, 9, 'ms1'),
-                defenceShip1 = new Ship('Defenceship', 80, 10, 'ds1'),
-                defenceShip2 = new Ship('Defenceship', 80, 10, 'ds2'),
-                defenceShip3 = new Ship('Defenceship', 80, 10, 'ds3'),
-                defenceShip4 = new Ship('Defenceship', 80, 10, 'ds4'),
-                defenceShip5 = new Ship('Defenceship', 80, 10, 'ds5'),
-                attackShip1 = new Ship('Attackship', 45, 12, 'as1'),
-                attackShip2 = new Ship('Attackship', 45, 12, 'as2'),
-                attackShip3 = new Ship('Attackship', 45, 12, 'as3'),
-                attackShip4 = new Ship('Attackship', 45, 12, 'as4'),
-                attackShip5 = new Ship('Attackship', 45, 12, 'as5'),
-                attackShip6 = new Ship('Attackship', 45, 12, 'as6'),
-                attackShip7 = new Ship('Attackship', 45, 12, 'as7'),
-                attackShip8 = new Ship('Attackship', 45, 12, 'as8');
-            arrayOfShips.push(motherShip, defenceShip1, defenceShip2, defenceShip3, defenceShip4, defenceShip5,
-                attackShip1, attackShip2, attackShip3, attackShip4, attackShip5, attackShip6, attackShip7,
-                attackShip8);
-            arrayOfShips.forEach(createShipHealthInHtml);
-        }
+    const generateNewShips = () => {
+      document.getElementById('output').innerHTML = '';
+      arrayOfShips = [];
+      const motherShip = new MotherShip('Mothership', 100, 9, 'ms1'),
+        defenceShip1 = new Ship('Defenceship', 80, 10, 'ds1'),
+        defenceShip2 = new Ship('Defenceship', 80, 10, 'ds2'),
+        defenceShip3 = new Ship('Defenceship', 80, 10, 'ds3'),
+        defenceShip4 = new Ship('Defenceship', 80, 10, 'ds4'),
+        defenceShip5 = new Ship('Defenceship', 80, 10, 'ds5'),
+        attackShip1 = new Ship('Attackship', 45, 12, 'as1'),
+        attackShip2 = new Ship('Attackship', 45, 12, 'as2'),
+        attackShip3 = new Ship('Attackship', 45, 12, 'as3'),
+        attackShip4 = new Ship('Attackship', 45, 12, 'as4'),
+        attackShip5 = new Ship('Attackship', 45, 12, 'as5'),
+        attackShip6 = new Ship('Attackship', 45, 12, 'as6'),
+        attackShip7 = new Ship('Attackship', 45, 12, 'as7'),
+        attackShip8 = new Ship('Attackship', 45, 12, 'as8');
+      arrayOfShips.push(motherShip, defenceShip1, defenceShip2, defenceShip3, defenceShip4, defenceShip5,
+        attackShip1, attackShip2, attackShip3, attackShip4, attackShip5, attackShip6, attackShip7,
+        attackShip8);
+      arrayOfShips.forEach(createShipHealthInHtml);
+    }
 
-        const createShipHealthInHtml = (ship) => {
-            document.getElementById('output').innerHTML += `<p id='${ship.id}'>${ship.name}<br>${ship.health}</p>`;
-        }
+    const createShipHealthInHtml = (ship) => {
+      document.getElementById('output').innerHTML += `<p id='${ship.id}'>${ship.name}<br>${ship.health}</p>`;
+    }
 
-        const chooseShipToFireAt = () => {
-            const shipPosition = Math.floor(Math.random() * arrayOfShips.length)
-            let chosenShip = arrayOfShips[shipPosition];
-            fireAtShip(chosenShip);
-            if (arrayOfShips[shipPosition].health < 1) {
-                arrayOfShips.splice(shipPosition, 1)
-            }
-        }
+    const chooseShipToFireAt = () => {
+      const shipPosition = Math.floor(Math.random() * arrayOfShips.length)
+      let chosenShip = arrayOfShips[shipPosition];
+      fireAtShip(chosenShip);
+      if (arrayOfShips[shipPosition].health < 1) {
+        arrayOfShips.splice(shipPosition, 1)
+      }
+    }
 
-        const fireAtShip = (ship) => {
-            ship.loseHealth();
-            console.log('Fired at ship ... ' + ship.id)
-            if (arrayOfShips[0].health < 1) {
-                arrayOfShips[0].destroyAllShips()
-            }
-            arrayOfShips.forEach(updateShipHealth);
-        }
+    const fireAtShip = (ship) => {
+      ship.loseHealth();
+      console.log('Fired at ship ... ' + ship.id)
+      if (arrayOfShips[0].health < 1) {
+        arrayOfShips[0].destroyAllShips()
+      }
+      arrayOfShips.forEach(updateShipHealth);
+    }
 
-        const updateShipHealth = (ship) => {
-            document.getElementById(ship.id).innerHTML = `${ship.name}<br>${ship.health}`;
-        }
-    </script>
+    const updateShipHealth = (ship) => {
+      document.getElementById(ship.id).innerHTML = `${ship.name}<br>${ship.health}`;
+    }
+  </script>
 </body>
 
 </html>
