@@ -20,7 +20,6 @@
             text-align: center;
         }
     </style>
-    <link rel="stylesheet" href="main.css">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Invaders</title>
@@ -60,7 +59,7 @@
         const generateNewShips = () => {
             document.getElementById('output').innerHTML = '';
             arrayOfShips = [];
-            const motherShip = new MotherShip('Mothership', 100, 9, 'ms1'),
+            const motherShip = new MotherShip('Mothership', 1, 9, 'ms1'),
                 defenceShip1 = new Ship('Defenceship', 80, 10, 'ds1'),
                 defenceShip2 = new Ship('Defenceship', 80, 10, 'ds2'),
                 defenceShip3 = new Ship('Defenceship', 80, 10, 'ds3'),
@@ -89,27 +88,24 @@
             let chosenShip = arrayOfShips[shipPosition];
             fireAtShip(chosenShip);
             // arrayOfShips.splice(shipPosition, 1)
-
         }
 
         const fireAtShip = (ship) => {
             ship.loseHealth();
+            if (arrayOfShips[0].health < 1) {
+                arrayOfShips[0].destroyAllShips()
+            }
             arrayOfShips.forEach(updateShipHealth)
         }
 
         const updateShipHealth = (ship) => {
             document.getElementById(ship.id).innerHTML = `${ship.name}<br>${ship.health}`
-            if (arrayOfShips[0].health < 1) {
-                arrayOfShips[0].destroyAllShips()
-            }
         }
     </script>
 </head>
 
 <body onload="generateNewShips()">
-
     <div id="output"></div>
-
     <button onclick="generateNewShips()">NEW GAME</button>
     <button onclick="chooseShipToFireAt()">FIRE</button>
 </body>
