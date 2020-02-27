@@ -1,37 +1,26 @@
 let arrayOfShips = [];
-const motherShipContainer = document.getElementById('mothership'),
-    defenceShipContainer1 = document.getElementById('defenceship1'),
-    defenceShipContainer2 = document.getElementById('defenceship2'),
-    defenceShipContainer3 = document.getElementById('defenceship3'),
-    defenceShipContainer4 = document.getElementById('defenceship4'),
-    defenceShipContainer5 = document.getElementById('defenceship5'),
-    attackShipContainer1 = document.getElementById('attackship1'),
-    attackShipContainer2 = document.getElementById('attackship2'),
-    attackShipContainer3 = document.getElementById('attackship3'),
-    attackShipContainer4 = document.getElementById('attackship4'),
-    attackShipContainer5 = document.getElementById('attackship5'),
-    attackShipContainer6 = document.getElementById('attackship6'),
-    attackShipContainer7 = document.getElementById('attackship7'),
-    attackShipContainer8 = document.getElementById('attackship8');
 
 class Ship {
-    constructor(name, health, damagetaken) {
+    constructor(name, health, damagetaken, id) {
         this.name = name;
         this.health = health;
         this.damagetaken = damagetaken;
+        this.id = id;
     }
 
     loseHealth() {
         this.health = this.health - this.damagetaken
         if (this.health < 0) {
             this.health = 0
+            // arrayOfShips.splice(this, 1)
+            console.log(arrayOfShips)
         }
     }
 }
 
 class MotherShip extends Ship {
-    constructor(name, health, damagetaken) {
-        super(name, health, damagetaken);
+    constructor(name, health, damagetaken, id) {
+        super(name, health, damagetaken, id);
     }
 
     destroyAllShips() {
@@ -44,23 +33,28 @@ const setHealthToZero = (ship) => {
 }
 
 const generateNewShips = () => {
+    document.getElementById('output').innerHTML = '';
     arrayOfShips = [];
-    const motherShip = new MotherShip('Mothership', 100, 9),
-        defenceShip1 = new Ship('Defenceship 1', 80, 10),
-        defenceShip2 = new Ship('Defenceship 2', 80, 10),
-        defenceShip3 = new Ship('Defenceship 3', 80, 10),
-        defenceShip4 = new Ship('Defenceship 4', 80, 10),
-        defenceShip5 = new Ship('Defenceship 5', 80, 10),
-        attackShip1 = new Ship('Attackship 1', 45, 12),
-        attackShip2 = new Ship('Attackship 2', 45, 12),
-        attackShip3 = new Ship('Attackship 3', 45, 12),
-        attackShip4 = new Ship('Attackship 4', 45, 12),
-        attackShip5 = new Ship('Attackship 5', 45, 12),
-        attackShip6 = new Ship('Attackship 6', 45, 12),
-        attackShip7 = new Ship('Attackship 7', 45, 12),
-        attackShip8 = new Ship('Attackship 8', 45, 12);
+    const motherShip = new MotherShip('Mothership', 100, 9, 'ms1'),
+        defenceShip1 = new Ship('Defenceship 1', 80, 10, 'ds1'),
+        defenceShip2 = new Ship('Defenceship 2', 80, 10, 'ds2'),
+        defenceShip3 = new Ship('Defenceship 3', 80, 10, 'ds3'),
+        defenceShip4 = new Ship('Defenceship 4', 80, 10, 'ds4'),
+        defenceShip5 = new Ship('Defenceship 5', 80, 10, 'ds5'),
+        attackShip1 = new Ship('Attackship 1', 45, 12, 'as1'),
+        attackShip2 = new Ship('Attackship 2', 45, 12, 'as2'),
+        attackShip3 = new Ship('Attackship 3', 45, 12, 'as3'),
+        attackShip4 = new Ship('Attackship 4', 45, 12, 'as4'),
+        attackShip5 = new Ship('Attackship 5', 45, 12, 'as5'),
+        attackShip6 = new Ship('Attackship 6', 45, 12, 'as6'),
+        attackShip7 = new Ship('Attackship 7', 45, 12, 'as7'),
+        attackShip8 = new Ship('Attackship 8', 45, 12, 'as8');
     arrayOfShips.push(motherShip, defenceShip1, defenceShip2, defenceShip3, defenceShip4, defenceShip5, attackShip1, attackShip2, attackShip3, attackShip4, attackShip5, attackShip6, attackShip7, attackShip8);
-    updateShipHealth();
+    arrayOfShips.forEach(createShipHealthInHtml)
+}
+
+const createShipHealthInHtml = (ship) => {
+    document.getElementById('output').innerHTML += `<p id='${ship.id}'> ${ship.name}<br>${ship.health}</p>`;
 }
 
 const chooseShipToFireAt = () => {
@@ -70,25 +64,12 @@ const chooseShipToFireAt = () => {
 
 const fireAtShip = (ship) => {
     ship.loseHealth();
-    updateShipHealth();
+    arrayOfShips.forEach(updateShipHealth)
 }
 
-const updateShipHealth = () => {
+const updateShipHealth = (ship) => {
+    document.getElementById(ship.id).innerHTML = `${ship.name}<br>${ship.health}`
     if (arrayOfShips[0].health < 1) {
         arrayOfShips[0].destroyAllShips()
     }
-    motherShipContainer.innerHTML = arrayOfShips[0].name + ' <br> ' + arrayOfShips[0].health;
-    defenceShipContainer1.innerHTML = arrayOfShips[1].name + ' <br> ' + arrayOfShips[1].health;;
-    defenceShipContainer2.innerHTML = arrayOfShips[2].name + ' <br> ' + arrayOfShips[2].health;
-    defenceShipContainer3.innerHTML = arrayOfShips[3].name + ' <br> ' + arrayOfShips[3].health;
-    defenceShipContainer4.innerHTML = arrayOfShips[4].name + ' <br> ' + arrayOfShips[4].health;
-    defenceShipContainer5.innerHTML = arrayOfShips[5].name + ' <br> ' + arrayOfShips[5].health;
-    attackShipContainer1.innerHTML = arrayOfShips[1].name + ' <br> ' + arrayOfShips[1].health;
-    attackShipContainer2.innerHTML = arrayOfShips[2].name + ' <br> ' + arrayOfShips[2].health;
-    attackShipContainer3.innerHTML = arrayOfShips[3].name + ' <br> ' + arrayOfShips[3].health;
-    attackShipContainer4.innerHTML = arrayOfShips[4].name + ' <br> ' + arrayOfShips[4].health;
-    attackShipContainer5.innerHTML = arrayOfShips[5].name + ' <br> ' + arrayOfShips[5].health;
-    attackShipContainer6.innerHTML = arrayOfShips[6].name + ' <br> ' + arrayOfShips[6].health;
-    attackShipContainer7.innerHTML = arrayOfShips[7].name + ' <br> ' + arrayOfShips[7].health;
-    attackShipContainer8.innerHTML = arrayOfShips[8].name + ' <br> ' + arrayOfShips[8].health;
 }
