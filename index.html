@@ -37,10 +37,23 @@
     }
 
     #output {
-      min-height: 60vh;
+      height: 62vh;
       display: flex;
       justify-content: center;
       flex-wrap: wrap;
+      overflow: hidden;
+    }
+
+    #game-panel {
+      border-top: solid 1px white;
+      padding: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .input-containers {
+      width: 20%;
     }
 
     button {
@@ -48,9 +61,8 @@
       font-size: 24px;
       width: 250px;
       background-color: red;
-
-      color: white;
       height: 50%;
+      color: white;
       margin: 5px;
     }
 
@@ -82,18 +94,6 @@
       width: 150px;
       font-size: 32px;
     }
-
-    #game-panel {
-      border-top: solid 1px white;
-      padding: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .input-containers {
-      width: 20%;
-    }
   </style>
 </head>
 
@@ -106,12 +106,12 @@
     <div class="input-containers">
       <h2>Defender ships</h2>
       <img src="defender.png">
-      <input type="text" id="defender-input" placeholder="defender ships" value="5">
+      <input type="number" id="defender-input" placeholder="defender ships" value="5">
     </div>
     <div class="input-containers">
       <h2>Attacker ships</h2>
       <img src="attacker.png">
-      <input type="text" id="attacker-input" placeholder="attacker ships" value="8">
+      <input type="number" id="attacker-input" placeholder="attacker ships" value="8">
     </div>
   </div>
 
