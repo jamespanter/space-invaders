@@ -47,17 +47,28 @@
       padding: 20px 40px;
       font-size: 24px;
       width: 250px;
-      background-color: antiquewhite;
-      color: black;
+      background-color: red;
+
+      color: white;
+      height: 50%;
+      margin: 5px;
     }
 
     button:hover {
       color: white;
-      background-color: red;
+      border-color: red;
+    }
+
+    #new {
+      color: black;
+      background-color: antiquewhite;
+
     }
 
     #new:hover {
       background-color: limegreen;
+      border-color: white;
+
     }
 
     img {
@@ -68,13 +79,20 @@
 
     input {
       height: 100%;
-      width: 250px;
+      width: 150px;
       font-size: 32px;
     }
 
-    .input-container {
+    #game-panel {
+      border-top: solid 1px white;
+      padding: 10px;
       display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
+    .input-containers {
+      width: 20%;
     }
   </style>
 </head>
@@ -86,12 +104,12 @@
     <button onclick="chooseShipToFireAt()">FIRE</button>
     <button id="new" onclick="generateNewShips()">NEW GAME</button>
     <div class="input-containers">
-      <h2>Number of defender ships</h2>
+      <h2>Defender ships</h2>
       <img src="defender.png">
       <input type="text" id="defender-input" placeholder="defender ships" value="5">
     </div>
     <div class="input-containers">
-      <h2>Number of attacker ships</h2>
+      <h2>Attacker ships</h2>
       <img src="attacker.png">
       <input type="text" id="attacker-input" placeholder="attacker ships" value="8">
     </div>
